@@ -1,0 +1,29 @@
+{
+    "name": "findafriendapi",
+    "version": "1.0.0",
+    "description": "A API permite CRUD de ONGs e Pets, com busca por cidade e tipo de pet. Os dados são armazenados em um banco de dados e há autenticação de usuário. Documentação completa é fornecida para integração.",
+    "main": "index.js",
+    "scripts": {
+        "dev": "tsx watch src/server.ts",
+        "lint": "eslint --ext .js,.ts src --fix"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Hauagge/FindAFriendAPI.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Hauagge/FindAFriendAPI/issues"
+    },
+    "homepage": "https://github.com/Hauagge/FindAFriendAPI#readme",
+    "dependencies": {
+        "@fastify/jwt": "^6.7.1",
+        "@prisma/client": "^4.12.0",
+        "fastify": "^4.15.0"
+    },
+    "devDependencies": {
+        "prisma": "^4.12.0"
+    }
+}

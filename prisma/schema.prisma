@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Orgs {
+  id           Int       @id @default(autoincrement())
+  name         String
+  email        String
+  password     String
+  phone        String
+  address      String
+  city         String
+  state        String
+  zip          String
+  country      String
+  website      String
+  logo         String
+  description  String
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @default(now())
+  deleted_at   DateTime?
+  is_deleted   Boolean   @default(false)
+  is_active    Boolean   @default(true)
+  is_verified  Boolean   @default(false)
+  is_approved  Boolean   @default(false)
+  is_rejected  Boolean   @default(false)
+  is_blocked   Boolean   @default(false)
+  is_suspended Boolean   @default(false)
+  is_archived  Boolean   @default(false)
+}
