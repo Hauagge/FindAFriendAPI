@@ -18,3 +18,6 @@ CREATE TABLE "orgs" (
 
     CONSTRAINT "orgs_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "orgs_email_key" ON "orgs"("email");

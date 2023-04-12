@@ -14,7 +14,7 @@ model Orgs {
   id               Int       @id @default(autoincrement())
   organizationName String
   ownerName        String
-  email            String
+  email            String    @unique
   password         String
   phone            String
   address          String
