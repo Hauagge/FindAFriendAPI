@@ -19,10 +19,9 @@ model Orgs {
   phone            String
   address          String
   city             String
-  state            String
   zipCode          String
-  latitue          String
-  longitute        String
+  latitude         String
+  longitude        String
   created_at       DateTime  @default(now())
   updated_at       DateTime  @default(now())
   deleted_at       DateTime?
