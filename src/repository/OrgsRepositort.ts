@@ -22,3 +22,5 @@ class OrgsRepository implements IOrgsRepository {
         throw new Error('Method not implemented.');
     }
 }
+
+export { OrgsRepository };
