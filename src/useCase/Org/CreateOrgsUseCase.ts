@@ -14,3 +14,5 @@ class CreateOrgsUseCase {
         return { org };
     }
 }
+
+export { CreateOrgsUseCase };
