@@ -28,3 +28,45 @@ model Orgs {
 
   @@map("orgs")
 }
+
+model Pets {
+  id                String         @id @default(uuid())
+  name              String
+  about             String
+  age               String
+  size              String
+  energyLevel       String
+  independencyLevel String
+  enviroment        String
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt()
+  deletedAt         DateTime?
+  requirements      Requirements[]
+  imagesPet         ImagesPet[]
+
+  @@map("pets")
+}
+
+model Requirements {
+  id          String    @id @default(uuid())
+  description String
+  petId       String
+  pet         Pets      @relation(fields: [petId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt()
+  deletedAt   DateTime?
+
+  @@map("requirements")
+}
+
+model ImagesPet {
+  id        String    @id @default(uuid())
+  url       String
+  petId     String
+  pet       Pets      @relation(fields: [petId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt()
+  deletedAt DateTime?
+
+  @@map("imagesPet")
+}
