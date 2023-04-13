@@ -2,6 +2,7 @@ import fastify from 'fastify';
 import fastifyJwt from '@fastify/jwt';
 import { ZodError } from 'zod';
 import { env } from './env';
+import { orgsRoutes } from './routes/orgs.routes';
 const app = fastify();
 
 app.register(fastifyJwt, {
@@ -17,7 +18,9 @@ app.register(fastifyJwt, {
 app.get('/', (request, reply) => {
     return { hello: 'world' };
 });
-
+app.register(orgsRoutes, {
+    prefix: '/api/v1/orgs',
+});
 app.setErrorHandler((error, _, reply) => {
     if (error instanceof ZodError) {
         return reply.status(400).send({
@@ -33,6 +36,6 @@ app.setErrorHandler((error, _, reply) => {
     return reply.status(500).send({ 'Internal Server Error': error.message });
 });
 
-app.listen({ port: 3333 }).then(() => {
-    console.log(`Server listening at 3333`);
+app.listen({ port: Number(process.env.PORT) }).then(() => {
+    console.log(`Server listening at ${process.env.PORT}`);
 });
