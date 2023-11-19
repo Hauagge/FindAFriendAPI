@@ -1,7 +1,7 @@
-import { FastifyRequest, FastifyReply } from 'fastify';
+import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
-import { OrgsRepository } from '../../repository/OrgsRepositort';
+import { OrgsRepository } from '../../../repository/OrgsRepositories/OrgsRepository';
 import { CreateOrgsUseCase } from './CreateOrgsUseCase';
 
 async function createOrgsController(

@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 import { hash } from 'bcryptjs';
-import { EmailAlreadyRegisteredError } from '../../errors/EmailAlreadyExists';
-import { OrgsRepository } from '../../repository/OrgsRepositort';
+import { EmailAlreadyRegisteredError } from '../../../errors/EmailAlreadyExists';
+import { OrgsRepository } from '../../../repository/OrgsRepositories/OrgsRepository';
 
 class CreateOrgsUseCase {
     constructor(private orgsRepository: OrgsRepository) {}
