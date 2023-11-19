@@ -1,6 +1,6 @@
-import { compare } from 'bcryptjs';
 import { InvalidCredentialsError } from '@/errors/InvalidCredentials';
-import { IOrgsRepository } from '@/repository/IOrgsRepository';
+import { IOrgsRepository } from '@/repository/OrgsRepositories/IOrgsRepository';
+import { compare } from 'bcryptjs';
 
 interface IAuthenticateUseCase {
     email: string;
