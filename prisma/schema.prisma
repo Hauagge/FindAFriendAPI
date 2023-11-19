@@ -25,6 +25,7 @@ model Orgs {
   created_at       DateTime  @default(now())
   updated_at       DateTime  @default(now())
   deleted_at       DateTime?
+  pets             Pets[]
 
   @@map("orgs")
 }
@@ -37,7 +38,9 @@ model Pets {
   size              String
   energyLevel       String
   independencyLevel String
-  enviroment        String
+  environment        String
+  orgId             Int
+  org               Orgs           @relation(fields: [orgId], references: [id])
   createdAt         DateTime       @default(now())
   updatedAt         DateTime       @updatedAt()
   deletedAt         DateTime?
