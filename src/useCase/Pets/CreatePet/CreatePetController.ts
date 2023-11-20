@@ -6,26 +6,37 @@ import { CreatePetsUseCase } from "./CreatePetUseCase";
 
 
 
-class CreatePetController {
+async function createPetsController(request: FastifyRequest,
+    reply: FastifyReply) {
 
-
-    async Handle(request: FastifyRequest,
-        reply: FastifyReply): Promise<FastifyReply> {
-
+        try {
 
             const createPetBodySchema = z.object({
                 name: z.string(),
-                age: z.number(),
+                age: z.string(),
                 type: z.string(),
                 breed: z.string(),
-                weight: z.number(),
                 city: z.string(),
-                state: z.string(),
+                about: z.string(),
                 description: z.string(),
-                orgId: z.string()
+                energyLevel: z.string(),
+                environment: z.string(),
+                independencyLevel: z.string(),
+                size: z.string(),
+               
             });
 
-            const { name, age, type, breed, weight, city, state, description, orgId } = createPetBodySchema.parse(request.body);
+            const { 
+                name, 
+                age, 
+                about, 
+                energyLevel,
+                environment,
+                independencyLevel,
+                size
+            } = createPetBodySchema.parse(request.body);
+
+            const orgId = Number(request.user.sub);
 
             const createPetUseCase = new CreatePetsUseCase(new PetsRepository());
 
@@ -33,17 +44,20 @@ class CreatePetController {
             const pet = await createPetUseCase.execute({
                 name,
                 age,
-                type,
-                breed,
-                weight,
-                city,
-                state,
-                description,
+                about,
+                energyLevel,
+                environment,
+                independencyLevel,
+                size,
                 orgId
             });
 
             return reply.status(201).send(pet);
 
+        }catch(err){
+            return reply.status(500).send({error: err});
         }
 
 }
+
+export { createPetsController };
