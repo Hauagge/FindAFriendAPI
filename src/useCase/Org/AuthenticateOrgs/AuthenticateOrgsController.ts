@@ -16,10 +16,16 @@ async function authenticateOrgsController(
 
     const orgsRepository = new OrgsRepository();
     const authenticateOrgsUseCase = new AuthenticateUseCase(orgsRepository);
+
     const { org } = await authenticateOrgsUseCase.execute({
         email,
         password,
     });
-    reply.status(201).send(org);
+
+    const token = await reply.jwtSign({
+        sub: org.id,
+        expiresIn: '7d',
+    });
+    reply.status(201).send({ token, organization: org.organizationName, id: org.id});
 }
 export { authenticateOrgsController };
