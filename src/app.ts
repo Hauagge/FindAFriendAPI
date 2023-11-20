@@ -1,8 +1,9 @@
-import fastify from 'fastify';
 import fastifyJwt from '@fastify/jwt';
+import fastify from 'fastify';
 import { ZodError } from 'zod';
 import { env } from './env';
 import { orgsRoutes } from './routes/orgs.routes';
+import { petsRoutes } from './routes/pets.routes';
 const app = fastify();
 
 app.register(fastifyJwt, {
@@ -20,6 +21,11 @@ app.get('/', (request, reply) => {
 });
 app.register(orgsRoutes, {
     prefix: '/api/v1/orgs',
+});
+
+app.register(petsRoutes, {
+
+    prefix: '/api/v1/pets',
 });
 app.setErrorHandler((error, _, reply) => {
     if (error instanceof ZodError) {
