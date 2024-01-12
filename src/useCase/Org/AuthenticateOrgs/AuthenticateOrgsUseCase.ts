@@ -1,6 +1,6 @@
 import { InvalidCredentialsError } from '@/errors/InvalidCredentials';
+import { IHashProvider } from '@/providers/hashProvider/IHashProvider';
 import { IOrgsRepository } from '@/repository/OrgsRepositories/IOrgsRepository';
-import { compare } from 'bcryptjs';
 
 interface IAuthenticateUseCase {
     email: string;
@@ -8,7 +8,10 @@ interface IAuthenticateUseCase {
 }
 
 export class AuthenticateUseCase {
-    constructor(private orgRepository: IOrgsRepository) {}
+    constructor(
+        private orgRepository: IOrgsRepository,
+        private hashProvider: IHashProvider
+        ) {}
 
     async execute({ email, password }: IAuthenticateUseCase) {
         const org = await this.orgRepository.findByEmail(email);
@@ -17,7 +20,7 @@ export class AuthenticateUseCase {
             throw new InvalidCredentialsError();
         }
 
-        const doesPasswordMatches = await compare(password, org.password);
+        const doesPasswordMatches = await this.hashProvider.compare(password, org.password);
 
         if (!doesPasswordMatches) {
             throw new InvalidCredentialsError();
