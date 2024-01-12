@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
+import { BcryptHashProvider } from '@/providers/hashProvider/BcryptHashProvider';
 import { OrgsRepository } from '../../../repository/OrgsRepositories/OrgsRepository';
 import { AuthenticateUseCase } from './AuthenticateOrgsUseCase';
 
@@ -15,7 +16,8 @@ async function authenticateOrgsController(
     const { email, password } = authenticateOrgsBodySchema.parse(request.body);
 
     const orgsRepository = new OrgsRepository();
-    const authenticateOrgsUseCase = new AuthenticateUseCase(orgsRepository);
+    const hashProvider = new BcryptHashProvider();
+    const authenticateOrgsUseCase = new AuthenticateUseCase(orgsRepository,hashProvider);
 
     const { org } = await authenticateOrgsUseCase.execute({
         email,
