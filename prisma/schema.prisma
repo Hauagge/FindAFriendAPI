@@ -31,33 +31,32 @@ model Orgs {
 }
 
 model Pets {
-  id                String         @id @default(uuid())
+  id                String             @id @default(uuid())
   name              String
   about             String
   age               String
   size              String
   energyLevel       String
   independencyLevel String
-  environment        String
+  environment       String
   orgId             Int
-  org               Orgs           @relation(fields: [orgId], references: [id])
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @updatedAt()
+  org               Orgs               @relation(fields: [orgId], references: [id])
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt()
   deletedAt         DateTime?
-  requirements      Requirements[]
+  petRequirements   PetsRequirements[]
   imagesPet         ImagesPet[]
 
   @@map("pets")
 }
 
 model Requirements {
-  id          String    @id @default(uuid())
-  description String
-  petId       String
-  pet         Pets      @relation(fields: [petId], references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt()
-  deletedAt   DateTime?
+  id              String             @id @default(uuid())
+  description     String
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt()
+  deletedAt       DateTime?
+  petRequirements PetsRequirements[]
 
   @@map("requirements")
 }
@@ -72,4 +71,14 @@ model ImagesPet {
   deletedAt DateTime?
 
   @@map("imagesPet")
+}
+
+model PetsRequirements {
+  id             String       @id @default(uuid())
+  petId          String
+  pet            Pets         @relation(fields: [petId], references: [id])
+  requirementsId String
+  requirements   Requirements @relation(fields: [requirementsId], references: [id])
+
+  @@map("petRequirements")
 }

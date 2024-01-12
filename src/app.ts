@@ -1,11 +1,15 @@
 import fastifyJwt from '@fastify/jwt';
+import swagger from '@fastify/swagger';
+import fastifySwaggerUi from '@fastify/swagger-ui';
 import fastify from 'fastify';
+import multer from 'fastify-multer';
 import { ZodError } from 'zod';
+
 import { env } from './env';
 import { orgsRoutes } from './routes/orgs.routes';
 import { petsRoutes } from './routes/pets.routes';
 const app = fastify();
-
+app.register(multer.contentParser)
 app.register(fastifyJwt, {
     secret: env.JWT_SECRET,
     cookie: {
@@ -16,6 +20,31 @@ app.register(fastifyJwt, {
         expiresIn: '1h',
     },
 });
+
+const swaggerOptions = {
+    swagger: {
+        info: {
+            title: 'IPM',
+            description: 'API Documentation',
+            version: '1.0.0',
+        },
+        host: 'localhost',
+        schemes: ['http', 'https'],
+        consumes: ['multipart/form-data', 'application/json'],
+        produces: ['application/json'],
+        tags: [{ name: 'default', description: 'default' }],
+    },
+};
+
+const swaggerUiOptions = {
+    routePrefix: '/docs',
+    exposeRoute: true,
+};
+
+
+app.register(swagger, swaggerOptions);
+app.register(fastifySwaggerUi, swaggerUiOptions);
+
 app.get('/', (request, reply) => {
     return { hello: 'world' };
 });
@@ -39,9 +68,6 @@ app.setErrorHandler((error, _, reply) => {
         console.log(error);
     }
 
-    return reply.status(500).send({ 'Internal Server Error': error.message });
+    return reply.status(500).send({ 'Internal Server Error': error });
 });
-
-app.listen({ port: Number(process.env.PORT) }).then(() => {
-    console.log(`Server listening at ${process.env.PORT}`);
-});
+export { app };

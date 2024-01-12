@@ -1,6 +1,7 @@
 
 
 class Pets {
+    id?: string;
     name: string;
     about: string;
     age: string;

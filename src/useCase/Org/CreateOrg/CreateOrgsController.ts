@@ -1,9 +1,8 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
+import { makeCreateOrgsFactory } from '@/Factories/Orgs/makeCreateOrgFactory';
 import { EmailAlreadyRegisteredError } from '@/errors/EmailAlreadyExists';
-import { OrgsRepository } from '../../../repository/OrgsRepositories/OrgsRepository';
-import { CreateOrgsUseCase } from './CreateOrgsUseCase';
 
 async function createOrgsController(
     request: FastifyRequest,
@@ -37,9 +36,8 @@ async function createOrgsController(
             zipCode,
         } = createOrgsBodySchema.parse(request.body);
     
-        const orgsRepository = new OrgsRepository();
-        const createOrgsUseCase = new CreateOrgsUseCase(orgsRepository);
-        const { org } = await createOrgsUseCase.execute({
+       const createOrgUseCase =  makeCreateOrgsFactory()
+        const { org } = await createOrgUseCase.execute({
             organizationName,
             ownerName,
             email,

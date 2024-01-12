@@ -14,8 +14,7 @@ class Orgs{
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;
-    constructor(id: number, organizationName: string, email: string, password: string, address: string, city: string, zipCode: string, latitude: string, longitude: string, ownerName: string, phone: string, deletedAt?: Date, createdAt?: Date, updatedAt?: Date){
-        this.id = id;
+    constructor( organizationName: string, email: string, password: string, address: string, city: string, zipCode: string, latitude: string, longitude: string, ownerName: string, phone: string, deletedAt?: Date, createdAt?: Date, updatedAt?: Date){
         this.organizationName = organizationName;
         this.email = email;
         this.password = password;
