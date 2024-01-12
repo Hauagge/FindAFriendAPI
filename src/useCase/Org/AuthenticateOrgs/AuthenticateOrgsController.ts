@@ -28,6 +28,6 @@ async function authenticateOrgsController(
         sub: org.id,
         expiresIn: '7d',
     });
-    reply.status(201).send({ token, organization: org.organizationName, id: org.id});
+    reply.status(200).send({ token, organization: org.organizationName, id: org.id});
 }
 export { authenticateOrgsController };
