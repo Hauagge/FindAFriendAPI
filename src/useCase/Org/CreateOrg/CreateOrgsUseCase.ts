@@ -1,10 +1,13 @@
+import { IHashProvider } from '@/providers/hashProvider/IHashProvider';
 import { Prisma } from '@prisma/client';
-import { hash } from 'bcryptjs';
 import { EmailAlreadyRegisteredError } from '../../../errors/EmailAlreadyExists';
 import { OrgsRepository } from '../../../repository/OrgsRepositories/OrgsRepository';
 
 class CreateOrgsUseCase {
-    constructor(private orgsRepository: OrgsRepository) {}
+    constructor(
+        private orgsRepository: OrgsRepository,
+        private hashProvider: IHashProvider
+        ) {}
 
     async execute({
         organizationName,
@@ -24,7 +27,7 @@ class CreateOrgsUseCase {
             organizationName,
             ownerName,
             email,
-            password: await hash(password, 6),
+            password: await this.hashProvider.encrypt(password),
             phone,
             address,
             city,
