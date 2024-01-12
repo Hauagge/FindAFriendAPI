@@ -1,15 +1,18 @@
 
+import { HashProviderInMemory } from '@/providers/hashProvider/HashProviderInMemory';
 import { OrgsRepositoryInMemory } from '@/repository/OrgsRepositories/OrgsRepositoryInMemory';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateOrgsUseCase } from './CreateOrgsUseCase';
 
 let sut:CreateOrgsUseCase;
 let orgsRepositoryInMemory: OrgsRepositoryInMemory;
+let hashProviderInMemory: HashProviderInMemory;
 describe('Create Org UseCase', () => {
     beforeEach(async()=>{
 
         orgsRepositoryInMemory = new OrgsRepositoryInMemory();
-        sut = new CreateOrgsUseCase(orgsRepositoryInMemory);
+        hashProviderInMemory = new HashProviderInMemory();
+        sut = new CreateOrgsUseCase(orgsRepositoryInMemory,hashProviderInMemory);
 
     })
     it('should be able to create a new org',async ()=>{
