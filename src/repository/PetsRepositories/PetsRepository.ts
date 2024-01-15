@@ -45,6 +45,9 @@ class PetsRepository implements IPetsRepository {
       where: {
         id: id,
       },
+      include:{
+        petRequirements:true,
+      }
     });
     return pet || undefined;
   }

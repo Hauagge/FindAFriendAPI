@@ -10,6 +10,8 @@ class Pets {
     independencyLevel: string;
     environment: string;
     orgId:number
+    createdAt?: Date;
+    updatedAt?: Date;
     constructor(name: string, age: string,size :string, energyLevel: string, independencyLevel: string, environment: string,  about: string,orgId:number) {
         this.name = name;
         this.age = age;
