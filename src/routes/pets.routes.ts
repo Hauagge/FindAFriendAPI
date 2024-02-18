@@ -25,7 +25,6 @@ export async function petsRoutes(app: FastifyInstance, options: any) {
   app.get(
     '/',
     {
-      onRequest: [verifyJwt],
       schema: {
         tags: ['Pets'],
         response: responsePets,
