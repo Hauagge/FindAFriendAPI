@@ -16,7 +16,7 @@ describe('Create Pet UseCase', () => {
     it('should be able to create a new org',async ()=>{
          await petsRepositoryInMemory.create({
        about: 'some description',
-       age: 'toddler', 
+       age: 'puppy', 
        energyLevel:' highest'  ,
        environment: 'production',
        independencyLevel: 'production', //
@@ -31,7 +31,7 @@ describe('Create Pet UseCase', () => {
 
         await petsRepositoryInMemory.create({
             about: 'some description',
-            age: 'toddler', 
+            age: 'puppy', 
             energyLevel:' highest'  ,
             environment: 'production',
             independencyLevel: 'production', //
@@ -45,7 +45,7 @@ describe('Create Pet UseCase', () => {
              })
         await petsRepositoryInMemory.create({
             about: 'some description',
-            age: 'toddler', 
+            age: 'puppy', 
             energyLevel:' highest'  ,
             environment: 'production',
             independencyLevel: 'production', //
