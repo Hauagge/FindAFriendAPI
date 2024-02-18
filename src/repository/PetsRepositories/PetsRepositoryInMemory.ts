@@ -1,9 +1,11 @@
 import { Pets } from "@/models/Pets";
 import { v4 as uuid } from 'uuid';
 import { IPetsRepository } from "./IPetsRepository";
+import { IFilterPEts } from "@/DTOS/IFilterPets";
 
 
 class PetsRepositoryInMemory implements IPetsRepository {
+ 
     pets:Pets[] = [];
     async create(data: Pets): Promise<Pets> {
        const newPet = {
@@ -25,19 +27,27 @@ class PetsRepositoryInMemory implements IPetsRepository {
          }
          return this.pets[petIndex];
     }
-   async  findById(id: number): Promise<Pets | undefined> {
+   async  findById(id: string): Promise<Pets | undefined> {
         const pet = this.pets.find((pet) => pet.id === id);
         return pet;
     }
-   async findByEmail(email: string): Promise<Pets | undefined> {
-        return new Promise((resolve) => resolve(this.pets.find((pet) => pet.email === email)));
-    }
-    async findByName(name: string): Promise<Pets | undefined> {
-       const pet = this.pets.find((pet) => pet.petName === name);
-         return pet;
-    }
+  
   async  findAll(): Promise<Pets[]> {
         return new Promise((resolve) => resolve(this.pets));
+    }
+
+   async  filter(data: IFilterPEts): Promise<Pets[]> {
+       const keys = Object.keys(data);
+        const values = Object.values(data);
+        const pets = this.pets.filter((pet) => {
+            return keys.every((key, index) => {
+                if(key === 'id' || key === 'createAt' || key === 'updateAt'){
+                    return true;
+                }
+                return pet[key as keyof Pets] === values[index];
+            });
+        });
+        return pets
     }
 }
 
