@@ -16,7 +16,7 @@ describe('Create Org Controller', () => {
 
 
     it('should be able create a new Org', async () => {
-        const org = await request(app.server).post('/api/v1/orgs').send({
+        await request(app.server).post('/api/v1/orgs').send({
             organizationName:'PAES',
             ownerName:'Jhon Doe',
             email:'email@test.com',
