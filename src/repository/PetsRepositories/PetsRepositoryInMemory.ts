@@ -44,6 +44,9 @@ class PetsRepositoryInMemory implements IPetsRepository {
                 if(key === 'id' || key === 'createAt' || key === 'updateAt'){
                     return true;
                 }
+                if(key ==='city'){
+                    return pet.org?.city === values[index];
+                }
                 return pet[key as keyof Pets] === values[index];
             });
         });

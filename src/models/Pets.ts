@@ -1,3 +1,4 @@
+import { Orgs } from "./Orgs";
 
 
 class Pets {
@@ -12,6 +13,7 @@ class Pets {
     orgId:number
     createdAt?: Date;
     updatedAt?: Date;
+    org?: Partial<Orgs>
     constructor(name: string, age: string,size :string, energyLevel: string, independencyLevel: string, environment: string,  about: string,orgId:number) {
         this.name = name;
         this.age = age;
