@@ -8,7 +8,7 @@ import { ShowPetsUseCase } from "./ShowPetUseCase";
 const showSchema = z.object({
  id: z.string().uuid(),
 });
-async function filterPetsController(request: FastifyRequest, reply: FastifyReply) {
+async function showPetsController(request: FastifyRequest, reply: FastifyReply) {
     const {id} = showSchema.parse(request.params);
 
     const petsRepository = new PetsRepository();
@@ -17,4 +17,4 @@ async function filterPetsController(request: FastifyRequest, reply: FastifyReply
     return reply.status(200).send(pets);
 }
 
-export { filterPetsController };
+export { showPetsController };
