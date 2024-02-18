@@ -6,7 +6,7 @@ import { FilterPetsUseCase } from './FilterPetsUseCase';
 let sut:FilterPetsUseCase;
 let petsRepositoryInMemory: PetsRepositoryInMemory;
 
-describe('Create Pet UseCase', () => {
+describe('Filter Pet UseCase', () => {
     beforeEach(async()=>{
 
         petsRepositoryInMemory = new PetsRepositoryInMemory();

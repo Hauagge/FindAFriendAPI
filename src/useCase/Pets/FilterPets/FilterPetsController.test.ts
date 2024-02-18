@@ -3,7 +3,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '../../../app';
 
 
-describe('Create Pet Controller', () => {
+describe('Filter Pet Controller', () => {
 
 
     beforeAll(async () => {
