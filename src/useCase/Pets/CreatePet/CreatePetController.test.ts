@@ -39,7 +39,7 @@ describe('Create Pet Controller', () => {
         .set('Authorization', `Bearer ${authenticate.body.token}`)
         .send({
             about: 'some description',
-            age: 'toddler', 
+            age: 'puppy', 
             energyLevel:' highest'  ,
             environment: 'production',
             independencyLevel: 'production', //
