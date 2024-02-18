@@ -10,7 +10,7 @@ const filterSchema = z.object({
     environment: z.string().optional(),
     independencyLevel: z.string().optional(),
     size: z.string().optional(),
-    city: z.string().optional(),
+    city: z.string(),
 });
 async function filterPetsController(request: FastifyRequest, reply: FastifyReply) {
     const { about, age, energyLevel, environment, independencyLevel, size, city } = filterSchema.parse(request.query);
@@ -20,7 +20,6 @@ async function filterPetsController(request: FastifyRequest, reply: FastifyReply
         energyLevel,
         environment,
         independencyLevel,
-        
         size,
         city,
     };
