@@ -3,36 +3,41 @@ import { HashProviderInMemory } from '@/providers/hashProvider/HashProviderInMem
 import { PetsRepositoryInMemory } from '@/repository/PetsRepositories/PetsRepositoryInMemory';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreatePetsUseCase } from './CreatePetUseCase';
+import { RequirementsRepositoryInMemory } from '@/repository/RequirementsRepositories/RequirementsRepositoryInMemery';
+import { PetsRequirementsRepositoryInMemory } from '@/repository/PetsRequirementsRepository/PetsRequirementsReposiotryInMemory';
+import { ImageRepositoryInMemory } from '@/repository/ImageRepository/ImagesRepositoryInMemory';
 
 let sut:CreatePetsUseCase;
 let petsRepositoryInMemory: PetsRepositoryInMemory;
 let requirementsRepositoryInMemory: RequirementsRepositoryInMemory;
-let petRequirementsRepositoryInMemory: PetRequirementsRepositoryInMemory;
-let imagePetRepositoryInMemory: ImagePetRepositoryInMemory;
+let petRequirementsRepositoryInMemory: PetsRequirementsRepositoryInMemory;
+let imagePetRepositoryInMemory: ImageRepositoryInMemory;
 
-let hashProviderInMemory: HashProviderInMemory;
 describe('Create Pet UseCase', () => {
     beforeEach(async()=>{
 
         petsRepositoryInMemory = new PetsRepositoryInMemory();
-        hashProviderInMemory = new HashProviderInMemory();
-        sut = new CreatePetsUseCase(petsRepositoryInMemory,);
+        requirementsRepositoryInMemory = new RequirementsRepositoryInMemory();
+        petRequirementsRepositoryInMemory = new PetsRequirementsRepositoryInMemory();
+        imagePetRepositoryInMemory = new ImageRepositoryInMemory();
+        sut = new CreatePetsUseCase(
+            petsRepositoryInMemory,requirementsRepositoryInMemory,petRequirementsRepositoryInMemory,imagePetRepositoryInMemory);
 
     })
-    it('should be able to create a new org',async ()=>{
-        const newOrg = await sut.execute({
-            organizationName: 'test',
-            ownerName: 'test',
-            email: 'email@test.com',
-            password: '1234',
-            phone: '1234',
-            address: '1234',
-            city: '1234',
-            latitude: '1234',
-            longitude: '1234',
-            zipCode: '1234',
+    it('should be able to create a pet ',async ()=>{
+        const pet = await sut.execute({
+           name: 'any_name',
+            age: 'toddler',
+            about: 'any_about',
+            energyLevel: 'high',
+            environment: 'indoor',
+            independencyLevel: 'high',
+            orgId: 1,
+            size: 'small',
+            requirements: ['any_requirement','any_requirement2'],
+
         })
 
-        expect(newOrg.org).toHaveProperty('id');
+        expect(pet).toHaveProperty('id');
     })
 })

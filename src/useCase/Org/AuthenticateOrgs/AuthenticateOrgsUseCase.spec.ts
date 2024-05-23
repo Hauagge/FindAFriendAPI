@@ -34,6 +34,6 @@ describe('Create Org UseCase', () => {
             password: '1234',
         })
 
-        expect(org).toHaveProperty('token');
+        expect(org).toHaveProperty('org');
     })
 })

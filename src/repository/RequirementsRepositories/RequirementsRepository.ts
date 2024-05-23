@@ -28,12 +28,8 @@ class RequirementsRepository implements IRequirementsRepository{
             }
         }) ?? undefined;
     }
-    async delete(): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    async update(): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
+  
+ 
 
    async findByDescription(description: string): Promise<Requirements | undefined> {
          return await prisma.requirements.findFirst({

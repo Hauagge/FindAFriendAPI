@@ -4,14 +4,7 @@ import { IRequirementsRepository } from "./IRequirementsRepository";
 
 
 class RequirementsRepositoryInMemory implements IRequirementsRepository {
-  async list(): Promise<Requirements[]> {
-     
-    return this.requirements;
-  }
- async findById(id: string): Promise<Requirements | undefined> {
-     const requirement = this.requirements.find((requirement) => requirement.id === id);
-        return requirement;
-  }
+  
  
   private requirements: any[] = [];
 
@@ -26,6 +19,14 @@ class RequirementsRepositoryInMemory implements IRequirementsRepository {
   }
   async findByDescription(description: string): Promise<any> {
     return this.requirements.find((requirement) => requirement.description === description);
+  }
+  async list(): Promise<Requirements[]> {
+     
+    return this.requirements;
+  }
+ async findById(id: string): Promise<Requirements | undefined> {
+     const requirement = this.requirements.find((requirement) => requirement.id === id);
+        return requirement;
   }
 }
 
