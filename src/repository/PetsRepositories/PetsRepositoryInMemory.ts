@@ -5,7 +5,7 @@ import { IFilterPEts } from "@/DTOS/IFilterPets";
 
 
 class PetsRepositoryInMemory implements IPetsRepository {
- 
+
     pets:Pets[] = [];
     async create(data: Pets): Promise<Pets> {
        const newPet = {
@@ -13,7 +13,7 @@ class PetsRepositoryInMemory implements IPetsRepository {
               id: uuid(),
               createAt: new Date(),
               updateAt: new Date(),
-         
+
        }
        this.pets.push(newPet);
        return newPet;
@@ -31,25 +31,26 @@ class PetsRepositoryInMemory implements IPetsRepository {
         const pet = this.pets.find((pet) => pet.id === id);
         return pet;
     }
-  
-   
+
   async  findAll(): Promise<Pets[]> {
         return new Promise((resolve) => resolve(this.pets));
     }
-    async filter(data: IFilterPEts): Promise<Pets[]> {
+
+   async  filter(data: IFilterPEts): Promise<Pets[]> {
        const keys = Object.keys(data);
         const values = Object.values(data);
         const pets = this.pets.filter((pet) => {
-            let isValid = true;
-            keys.forEach((key,index) => {
-                if(!pet[key as keyof Pets] || pet[key as keyof Pets] !== values[index]){
-                    isValid = false;
+            return keys.every((key, index) => {
+                if(key === 'id' || key === 'createAt' || key === 'updateAt'){
+                    return true;
                 }
-            })
-            return isValid;
-        })
-        return pets;
-
+                if(key ==='city'){
+                    return pet.org?.city === values[index];
+                }
+                return pet[key as keyof Pets] === values[index];
+            });
+        });
+        return pets
     }
 }
 

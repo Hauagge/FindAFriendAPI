@@ -1,10 +1,11 @@
 
-import { HashProviderInMemory } from '@/providers/hashProvider/HashProviderInMemory';
+import { RequirementsRepositoryInMemory} from '@/repository/RequirementsRepositories/RequirementsRepositoryInMemory';
 import { PetsRepositoryInMemory } from '@/repository/PetsRepositories/PetsRepositoryInMemory';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreatePetsUseCase } from './CreatePetUseCase';
-import { RequirementsRepositoryInMemory } from '@/repository/RequirementsRepositories/RequirementsRepositoryInMemery';
+
 import { PetsRequirementsRepositoryInMemory } from '@/repository/PetsRequirementsRepository/PetsRequirementsReposiotryInMemory';
+
 import { ImageRepositoryInMemory } from '@/repository/ImageRepository/ImagesRepositoryInMemory';
 
 let sut:CreatePetsUseCase;
@@ -20,24 +21,22 @@ describe('Create Pet UseCase', () => {
         requirementsRepositoryInMemory = new RequirementsRepositoryInMemory();
         petRequirementsRepositoryInMemory = new PetsRequirementsRepositoryInMemory();
         imagePetRepositoryInMemory = new ImageRepositoryInMemory();
-        sut = new CreatePetsUseCase(
-            petsRepositoryInMemory,requirementsRepositoryInMemory,petRequirementsRepositoryInMemory,imagePetRepositoryInMemory);
+        sut = new CreatePetsUseCase(petsRepositoryInMemory,requirementsRepositoryInMemory,petRequirementsRepositoryInMemory,imagePetRepositoryInMemory);
 
     })
-    it('should be able to create a pet ',async ()=>{
-        const pet = await sut.execute({
-           name: 'any_name',
-            age: 'toddler',
-            about: 'any_about',
-            energyLevel: 'high',
-            environment: 'indoor',
-            independencyLevel: 'high',
-            orgId: 1,
-            size: 'small',
-            requirements: ['any_requirement','any_requirement2'],
+    it('should be able to create a new org',async ()=>{
+        const newPet = await sut.execute({
+       about: 'some description',
+       age: 'toddler',
+       energyLevel:' highest'  ,
+       environment: 'production',
+       independencyLevel: 'production', //
+       name:'some name here',
+       orgId: 1,
+       size: 'big',
+       requirements: ['free space', 'food', 'water'],
 
         })
-
-        expect(pet).toHaveProperty('id');
+        expect(newPet).toHaveProperty('id');
     })
 })

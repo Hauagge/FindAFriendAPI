@@ -16,7 +16,7 @@ describe('Create Org UseCase', () => {
         sut = new AuthenticateUseCase(orgsRepositoryInMemory,hashProviderInMemory);
 
     })
-    it('should be able to create a new org',async ()=>{
+    it('should be able to authenticate a  org',async ()=>{
         await orgsRepositoryInMemory.create({
             organizationName: 'test',
             ownerName: 'test',
@@ -29,11 +29,12 @@ describe('Create Org UseCase', () => {
             longitude: '1234',
             zipCode: '1234',
         })
-        const org = await sut.execute({
+        const {org} = await sut.execute({
             email: 'email@test.com',
             password: '1234',
         })
 
         expect(org).toHaveProperty('org');
+        expect(org).toHaveProperty('id');
     })
 })

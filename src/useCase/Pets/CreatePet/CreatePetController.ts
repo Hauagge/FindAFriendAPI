@@ -32,9 +32,10 @@ async function createPetsController(request: FastifyRequest,
                 requirements: z.string().array().optional(),
                
             });
-            const images: IFilename[] = request.files.map((file) => ({
+            const {files} = request
+            const images: IFilename[] = files ? files.map((file) => ({
                 filename: file.filename ?? '', // Ensure filename is not undefined
-              }))
+              })) : []
             const { 
                 name, 
                 about, 

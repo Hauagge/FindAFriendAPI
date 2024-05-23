@@ -3,7 +3,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { app } from '../../../app';
 
 
-describe('Create Org Controller', () => {
+describe('Create Pet Controller', () => {
 
 
     beforeAll(async () => {
@@ -15,7 +15,7 @@ describe('Create Org Controller', () => {
     });
 
 
-    it('should be able create a new Org', async () => {
+    it('should be able create a new pet', async () => {
         await request(app.server).post('/api/v1/orgs').send({
             organizationName:'PAES',
             ownerName:'Jhon Doe',
@@ -30,14 +30,26 @@ describe('Create Org Controller', () => {
             zipCode:'123456',
         });
 
-
-        const response = await request(app.server).post('/api/v1/orgs/authenticate').send({
+        const authenticate = await request(app.server).post('/api/v1/orgs/authenticate').send({
             email:'email@test.com',
             password:'123456',
         });
 
-        expect(response.status).toBe(200);
-        expect(response.body).toHaveProperty('token');
+        const response =  await request(app.server).post('/api/v1/pets')
+        .set('Authorization', `Bearer ${authenticate.body.token}`)
+        .send({
+            about: 'some description',
+            age: 'puppy', 
+            energyLevel:' highest'  ,
+            environment: 'production',
+            independencyLevel: 'production', //
+            name:'some name here',
+            size: 'big',
+            requirements: ['free space', 'food', 'water'],
+        });
+       
+        expect(response.status).toBe(201);
+        expect(response.body).toHaveProperty('id');
     });
   
 }

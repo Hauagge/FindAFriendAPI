@@ -2,6 +2,7 @@ import uploadConfig from '@/@config/upload';
 import { verifyJwt } from '@/middleware/CheckSessionsIdExists';
 import { createPetsController } from '@/useCase/Pets/CreatePet/CreatePetController';
 import { filterPetsController } from '@/useCase/Pets/FilterPets/FilterPetsController';
+import {showPetsController} from '@/useCase/Pets/ShowPet/ShowPetController';
 import { FastifyInstance } from 'fastify';
 import multer from 'fastify-multer';
 import { petsSchema, responsePets } from './schemas/petsSchema';
@@ -25,7 +26,6 @@ export async function petsRoutes(app: FastifyInstance, options: any) {
   app.get(
     '/',
     {
-      onRequest: [verifyJwt],
       schema: {
         tags: ['Pets'],
         response: responsePets,
@@ -37,7 +37,6 @@ export async function petsRoutes(app: FastifyInstance, options: any) {
   app.get(
     '/:id',
     {
-      onRequest: [verifyJwt],
       schema: {
         tags: ['Pets'],
         params: {
@@ -49,6 +48,6 @@ export async function petsRoutes(app: FastifyInstance, options: any) {
         response: responsePets,
       },
     },
-    filterPetsController
+    showPetsController
   );
 }
